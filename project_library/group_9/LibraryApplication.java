@@ -34,6 +34,7 @@
  *   [6] Exit
  * - Stops the program  
  * */
+package group_9;
 
 public class LibraryApplication {
 	
