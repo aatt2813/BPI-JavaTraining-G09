@@ -56,30 +56,18 @@ public class LibraryApplication {
         String input1 = SCANNER.nextLine();
         
         int userInput1 = Integer.parseInt(input1);	// read input and convert to integer
-		// validate the library ID
-        if (user.checkUserID(userInput1)) {
-        	System.out.println("User ID found in User Database");
-        }
-        	else {
-        	System.out.println("User ID not found in User Database");        	
-        	System.out.println("Exiting the program");
-        	System.exit(0);
-        }
-		
-        // validate if the user name matches the library ID
+		// for user ID
+
         System.out.println("Please enter your user name #");
         String input2 = SCANNER.nextLine();
         
-        if(user.checkUserName(input2)) {
-        	System.out.println("User ID match the provided user name. OK to proceed in main menu."); 
-        } else {
-        	System.out.println("Probable breach.");
-        	System.out.println("Exiting...");
-        	System.exit(0);
-        }
+        // for user name
+        user.setUser(userInput1, input2);
 
 		// initial library creation
-		this.library = new Library();	
+		this.library = new Library();
+
+		// initial loan creation		
 		this.loan = new Loan(this.user, this.library);
 		
 		// add code here
@@ -106,7 +94,7 @@ public class LibraryApplication {
                 //System.out.println("**Investigation");
                 //System.out.println("userInput1: " + userInput1);
                 //System.out.println("userInput3: " + userInput3);
-            	loan.borrowBook(userInput1, userInput3);	
+            	loan.borrowBook(user.getLibraryID(), userInput3);	
             	break;
             	case "5": 
             	
@@ -116,7 +104,7 @@ public class LibraryApplication {
                     
                 int userInput4 = Integer.parseInt(input4);	// read input and convert to integer
 
-            	loan.setReturn(userInput1, userInput4);
+            	loan.setReturn(user.getLibraryID(), userInput4);
             	
             	break;
             	case "6": System.out.println("[6] Exit                        ");

@@ -59,6 +59,8 @@ public class Loan {
             book.setBookLoanStatus(returnBookID, false);
             System.out.println("Book \"" + book.getBookTitle(returnBookID) + "\" has been returned.");
     		
+    	} else {
+    		System.out.println("Book is not loaned!");
     	}
         
     }
