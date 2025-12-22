@@ -36,23 +36,114 @@
  * */
 package group_9;
 
-public class LibraryApplication {
+import java.util.Scanner;
+
+public class LibraryApplication extends Library{
 	
-	private User user;
+	private User user1;
 	private Library library;
+	boolean exit;
+	private Scanner sc = new Scanner(System.in);
+
+
 	
 	// Main Application Logic, call this in your Main.java
 	public void start() {
+		
 		// initial user creation
-		this.user = new User();
-
+		this.user1 = new User();
+		createUser();
+		
 		// initial library creation
 		this.library = new Library();
+		this.library.initBooks();
+		this.library.initLoans();
+		
 		
 		// add code here
+		do {
+			showOptions();
+			getOption();
+			}
+		while(!getExit());
+		
 		
 	}
+	void getOption() {
+		
+		String initialOption=sc.nextLine();
+		int validOption = validateOption(initialOption);
+		
+		switch(validOption) {
+			case 1:
+				library.showBookList();
+				break;
+			case 2:
+				library.showAvailableBooks();
+				break;
+			case 3:
+				library.showBorrowedBooks();
+				break;
+			case 4:
+				library.showAvailableBooks();
+				library.borrowBook(user1);
+				break;
+			case 5:
+				library.returnBook();
+				break;
+			case 6:
+				setExit(true);
+				break;
+			default:
+				displayString("\nError: Please input correct option.");
+		}
+		
+	}
+
+	void showOptions() {
+		 String dispUser = "\n+=================================================+\n" +
+				           "|               LIBRARY MAIN MENU                 |" +
+				           "\n+=================================================+\n" +
+	                       "Library Options\t\t\tUser: " + user1.getName() + "\n" +
+	                      "[1] Display All Books\n" + 
+				 		  "[2] Display Available Books\n" +
+				 		  "[3] Display All Borrowed Books\n" +
+				 		  "[4] Borrow Book\n" +
+				 		  "[5] Return Book\n" +
+				 		  "[6] Exit\nPlease Input an option: ";
+		 displayString(dispUser);
+	}
 	
-	// add code here
+	void createUser() {
+		
+		String display = "~~~~~~~~~~~~~"+
+				"|       GROUP 9 LIBRARY      |" +
+				"~~~~~~~~~~~~~"+
+				"\nHi! Before we start, lets create your account first!"+
+				"\nPlease create your Account by inputting username or ID.\n" +
+				"\nInput username or ID: ";
+		
+		displayString(display);
+		user1.setName(sc.nextLine());
+
+	}
+	public int validateOption(String input) {
+
+		int option = 0;
+		for (int i=0; i<input.length(); i++) {
+			char c = input.charAt(i);
+			if (c < '0' || c > '9')
+				option = 999;
+			else
+				option = Integer.parseInt(input);
+		}
+		return option;
+	}
 	
+	public boolean getExit() {
+		return exit;
+	}
+	public void setExit(boolean exit) {
+		this.exit = exit;
+	}
 }
