@@ -321,12 +321,8 @@ public class LibraryApplication extends Library {
 			System.out.println(user1.getName()+ " have successfully borrowed this book: "+ bookContainer.getTitle());
 		}
 		if(choice == "REMOVE") { 
-			Book book = new Book();
-			
-			System.out.print("Before instancetiate: "+ book.getId() + bookContainer.getId());
-			
+			Book book = new Book();			
 			book = bookContainer;
-			System.out.print("After instancetiate: "+ book.getId() + bookContainer.getId());
 			
 			loans.remove(new Loan(book,user1));
 			bookContainer.setLoanTagger(false);
